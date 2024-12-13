@@ -2,6 +2,7 @@
 
 import { Provider } from 'react-redux';
 import store from '../store/index';
+import './globals.css';
 
 export default function RootLayout({
     children,
@@ -16,7 +17,6 @@ export default function RootLayout({
                         <h1>SHOPY-LIKE-PROJECT</h1>
                     </header>
                     <main>{children}</main>
-                    <footer></footer>
                 </Provider>
             </body>
         </html>

@@ -1,10 +1,11 @@
 'use client';
 
+import styles from './FormInput.module.css';
 import React from 'react';
-import { UseFormRegister, RegisterOptions } from 'react-hook-form';
+import { UseFormRegister, RegisterOptions, FieldValues, Path } from 'react-hook-form';
 
-interface FormInputProps<TFormValues> {
-    id: keyof TFormValues;
+interface FormInputProps<TFormValues extends FieldValues> {
+    id: Path<TFormValues>; // используем Path вместо keyof
     label: string;
     type?: string;
     register: UseFormRegister<TFormValues>;
@@ -12,19 +13,27 @@ interface FormInputProps<TFormValues> {
     error?: string;
 }
 
-const FormInput = <TFormValues extends Record<string, any>>({
+const FormInput = <TFormValues extends FieldValues>({
     id,
     label,
-    type = 'text',
     register,
     options,
     error,
 }: FormInputProps<TFormValues>) => {
     return (
-        <div className="form-input">
-            <label htmlFor={id as string}>{label}</label>
-            <input id={id as string} type={type} {...register(id, options)} />
-            {error && <div className="error">{error}</div>}
+        <div className={styles.formInput}>
+            <label htmlFor={id} className={styles.label}>
+                {label}
+            </label>
+            <input
+                className={error ? `${styles.input} ${styles.error}` : styles.input}
+                id={id}
+                type="text"
+                {...register(id, options)}
+            />
+            <div className={styles.errorContainer}>
+                {error && <div className={styles.errorText}>{error}</div>}
+            </div>
         </div>
     );
 };

@@ -1,53 +1,32 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/store';
-import { getProducts, selectorProductsData, selectorProductsStatus } from '@/store/productsSlice';
-import { useEffect, useState } from 'react';
-import ProductCard from '../../components/ProductCard';
-import Link from 'next/link';
+import { useState } from 'react';
+import ProductControls from '@/components/ProductControls/ProductControls';
+import ProductList from '@/components/ProductList/ProductList';
+import styles from './page.module.css';
 
-const ProductList = () => {
-    const dispatch = useAppDispatch();
-    const products = useAppSelector(selectorProductsData);
-    const status = useAppSelector(selectorProductsStatus);
-
+const ProductPage = () => {
     const [showFavs, setShowFavs] = useState(false);
-
-    useEffect(() => {
-        if (status === 'Idle') {
-            dispatch(getProducts());
-        }
-    }, [dispatch, status]);
-
-    const filteredProducts = showFavs ? products.filter((p) => p.isLiked) : products;
+    const [searchTerm, setSearchTerm] = useState('');
 
     const toggleFavs = () => {
         setShowFavs((prevState) => !prevState);
     };
 
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
+    };
     return (
-        <>
-            <button onClick={toggleFavs}>{!showFavs ? 'В избранном' : 'К товарам'}</button>
-            <Link href={`/new-product`}>Добавить продукт</Link>
-
-            {status === 'Loading' && <p>Loading...</p>}
-            {status === 'Failed' && <p>Some error</p>}
-
-            {status === 'Success' && (
-                <div>
-                    {filteredProducts.length === 0 ? (
-                        <div>Тебе ничего не понравилось</div>
-                    ) : (
-                        filteredProducts.map((product) => (
-                            <div key={product._id}>
-                                <ProductCard product={product} />
-                            </div>
-                        ))
-                    )}
-                </div>
-            )}
-        </>
+        <div className={styles.productPage}>
+            <ProductControls
+                onToggleFavs={toggleFavs}
+                onSearchChange={handleSearchChange}
+                showFavs={showFavs}
+                searchTerm={searchTerm}
+            />
+            <ProductList showFavs={showFavs} searchTerm={searchTerm} />
+        </div>
     );
 };
 
-export default ProductList;
+export default ProductPage;

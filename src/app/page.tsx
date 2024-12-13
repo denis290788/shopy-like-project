@@ -1,11 +1,12 @@
-'use client';
+import './page.module.css';
 
-import ProductList from '@/app/products/page';
+import ProductPage from '@/app/products/page';
+import styles from './page.module.css';
 
 export default function Home() {
     return (
-        <div>
-            <ProductList />
+        <div className={styles.main}>
+            <ProductPage />
         </div>
     );
 }

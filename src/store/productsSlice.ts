@@ -24,9 +24,9 @@ export const getProducts = createAsyncThunk(
                 throw new Error('Failed to fetch products');
             }
             const data = await response.json();
-            return data; // Успешно полученные данные
+            return data;
         } catch (error) {
-            return rejectWithValue((error as Error).message); // Обработка ошибок
+            return rejectWithValue((error as Error).message);
         }
     }
 );
@@ -51,25 +51,22 @@ export const deleteProduct = createAsyncThunk(
     }
 );
 
-export const toggleLike = createAsyncThunk(
-    'products/toggleLike',
-    async (product: TProduct, { rejectWithValue }) => {
+export const updateProduct = createAsyncThunk(
+    'products/updateProduct',
+    async ({ id, updates }: { id: string; updates: Partial<TProduct> }, { rejectWithValue }) => {
         try {
             const response = await fetch(
-                `https://675833c060576a194d0f5794.mockapi.io/shopy/v1/products/${product._id}`,
+                `https://675833c060576a194d0f5794.mockapi.io/shopy/v1/products/${id}`,
                 {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        ...product,
-                        isLiked: !product.isLiked, // Меняем статус лайка
-                    }),
+                    body: JSON.stringify(updates),
                 }
             );
             if (!response.ok) {
-                throw new Error('Failed to toggle like');
+                throw new Error('Failed to update product');
             }
             const updatedProduct = await response.json();
             return updatedProduct;
@@ -107,11 +104,7 @@ export const addProduct = createAsyncThunk(
 export const productSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {
-        addProduct: (state, { payload }) => {
-            state.data.push(payload);
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(getProducts.pending, (state) => {
@@ -138,10 +131,7 @@ export const productSlice = createSlice({
                 state.status = 'Failed';
             });
         builder
-            .addCase(toggleLike.pending, (state) => {
-                state.status = 'Loading';
-            })
-            .addCase(toggleLike.fulfilled, (state, action) => {
+            .addCase(updateProduct.fulfilled, (state, action) => {
                 state.status = 'Success';
                 const updatedProduct = action.payload;
                 const index = state.data.findIndex((p) => p._id === updatedProduct._id);
@@ -149,7 +139,7 @@ export const productSlice = createSlice({
                     state.data[index] = updatedProduct;
                 }
             })
-            .addCase(toggleLike.rejected, (state) => {
+            .addCase(updateProduct.rejected, (state) => {
                 state.status = 'Failed';
             });
         builder

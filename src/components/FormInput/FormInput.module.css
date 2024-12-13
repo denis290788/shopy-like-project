@@ -1,0 +1,30 @@
+.formInput {
+    margin: 10px 10px;
+}
+.label {
+    font-weight: bold;
+    font-size: 18px;
+}
+.input {
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 20px;
+    transition: all 0.3s;
+}
+.input:focus {
+    outline: none;
+    background-color: #9397aa;
+}
+.input.error {
+    border: 2px solid rgb(244, 88, 88);
+}
+.errorContainer {
+    height: 16px;
+    margin-top: 4px;
+}
+.errorText {
+    color: rgb(244, 88, 88);
+    font-size: 15px;
+}

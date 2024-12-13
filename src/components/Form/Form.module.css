@@ -1,0 +1,19 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    background: linear-gradient(225deg, #4ac77c, #dfe6e9);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buttonSection {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}

@@ -1,10 +1,19 @@
-export default function Button({ children, isActive, ...props }) {
+import styles from './Button.module.css';
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    children: React.ReactNode;
+    isActive?: boolean;
+}
+
+const Button = ({ children, isActive, ...props }: ButtonProps) => {
     return (
         <button
             {...props}
-            className={isActive ? `${classes.button} ${classes.active}` : classes.button}
+            className={isActive ? `${styles.button} ${styles.active}` : styles.button}
         >
             {children}
         </button>
     );
-}
+};
+
+export default Button;

@@ -1,0 +1,95 @@
+.controlBar {
+    display: flex;
+    justify-content: space-between;
+    max-width: 600px;
+    height: 75px;
+    padding: 10px;
+    background: linear-gradient(225deg, #4ac77c, #dfe6e9);
+    border-radius: 5px;
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+    gap: 55px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.buttonsSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 5px;
+    overflow: hidden;
+    width: max(200px);
+}
+
+.controlButton {
+    height: 100%;
+    border: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: #4ac77c;
+    color: #555555;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.controlButton:hover {
+    opacity: 0.8;
+    background: #9397aa;
+}
+
+.controlButton:focus {
+    outline: none;
+    opacity: 0.8;
+    background: #9397aa;
+}
+
+.searchSection {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s;
+    border-radius: 5px;
+    overflow: hidden;
+    padding-left: 5px;
+}
+
+.searchSection:hover {
+    opacity: 0.8;
+    background: #9397aa;
+}
+
+.controlInput {
+    height: 100%;
+    border: none;
+    padding: 8px;
+    font-size: 20px;
+    transition: all 0.3s;
+}
+
+.controlInput:focus {
+    outline: none;
+    background-color: #9397aa;
+}
+
+@media (max-width: 768px) {
+    .controlBar {
+        gap: 10px;
+    }
+
+    .buttonsSection {
+        justify-content: center;
+    }
+
+    .searchSection {
+        grid-template-columns: 1fr 8fr;
+        width: 100%;
+        justify-items: center;
+    }
+
+    .controlInput {
+        width: 100%;
+    }
+}

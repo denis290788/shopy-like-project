@@ -1,0 +1,10 @@
+.productPage {
+    display: grid;
+    justify-items: center;
+}
+
+@media (max-width: 768px) {
+    .productPage {
+        padding: 10px;
+    }
+}
