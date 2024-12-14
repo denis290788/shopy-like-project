@@ -11,3 +11,5 @@ pnpm dev
 # or
 bun dev
 ```
+
+https://shopy-like-project.vercel.app/products
