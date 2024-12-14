@@ -5,7 +5,7 @@ import React from 'react';
 import { UseFormRegister, RegisterOptions, FieldValues, Path } from 'react-hook-form';
 
 interface FormInputProps<TFormValues extends FieldValues> {
-    id: Path<TFormValues>; // используем Path вместо keyof
+    id: Path<TFormValues>;
     label: string;
     type?: string;
     register: UseFormRegister<TFormValues>;
